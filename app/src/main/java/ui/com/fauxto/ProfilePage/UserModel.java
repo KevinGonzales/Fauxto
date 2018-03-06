@@ -1,5 +1,7 @@
 package ui.com.fauxto.ProfilePage;
 
+import android.media.Image;
+
 import java.util.ArrayList;
 
 /**
@@ -9,9 +11,22 @@ import java.util.ArrayList;
 public class UserModel {
 
     private ArrayList<UserModel> friends;
+    private ArrayList<Image> photos;
     private String firstName;
     private String lastName;
     private String userName;
+
+    public ArrayList<Image> getPhotos() {
+        return photos;
+    }
+
+    public void addPhoto(Image photo){
+        photos.add(photo);
+    }
+
+    public void setPhotos(ArrayList<Image> photos) {
+        this.photos = photos;
+    }
 
     public ArrayList<UserModel> getFriends() {
         return friends;

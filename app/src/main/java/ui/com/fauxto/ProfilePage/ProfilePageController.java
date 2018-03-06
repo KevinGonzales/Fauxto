@@ -5,8 +5,8 @@ package ui.com.fauxto.ProfilePage;
  */
 
 public class ProfilePageController {
-    private UserModel user ;
 
+    private UserModel user ;
     ProfilePageController(UserModel user){
         this.user = user;
 
