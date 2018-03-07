@@ -65,7 +65,7 @@
         android:layout_alignBottom="@+id/userName"
         android:layout_alignStart="@+id/passwordInput"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName"></EditText>
 
     <EditText
         android:id="@+id/firstNameInput"
@@ -84,7 +84,7 @@
         android:layout_alignBottom="@+id/lastName"
         android:layout_alignStart="@+id/usernameInput"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName"></EditText>
 
     <Button
         android:id="@+id/registerButton"
