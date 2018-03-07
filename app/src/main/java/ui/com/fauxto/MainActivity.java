@@ -1,7 +1,10 @@
 package ui.com.fauxto;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_profilePic:
                 fragment = new ProfilePageController();
                 break;
+            case R.id.navigation_Camera:
+
         }
 
         return loadFragment(fragment);
@@ -58,4 +63,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
+
 }
