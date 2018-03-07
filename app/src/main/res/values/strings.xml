@@ -3,4 +3,5 @@
     <string name = "title_home">Home</string>
     <string name = "title_dashboard">Feed</string>
     <string name = "title_notifications">Profile Page</string>
+    <string name = "file_paths">What</string>
 </resources>
