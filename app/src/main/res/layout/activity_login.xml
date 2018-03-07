@@ -54,7 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:layout_toEndOf="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:onClick="LogInHandler"
+        android:layout_marginBottom="58dp"
         android:text="Login" />
 </RelativeLayout>
