@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         return loadFragment(fragment);
     }
-
+//sdd
     private boolean loadFragment(Fragment fragment){
         if(fragment!=null){
 
