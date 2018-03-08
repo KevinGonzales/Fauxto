@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import ui.com.fauxto.Camera.CameraActivity;
 import ui.com.fauxto.ProfilePage.ProfilePageController;
 import ui.com.fauxto.UserFeed.UserFeedController;
 
@@ -48,12 +49,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new ProfilePageController();
                 break;
             case R.id.navigation_Camera:
-
+                Intent myIntent = new Intent(this,CameraActivity.class);
+                Log.d("TAG","IN");
+                startActivity(myIntent);
         }
 
         return loadFragment(fragment);
     }
-//sdd
+
     private boolean loadFragment(Fragment fragment){
         if(fragment!=null){
 
