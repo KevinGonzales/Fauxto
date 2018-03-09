@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "504775901120",
+    "firebase_url": "https://fauxto-c9310.firebaseio.com",
+    "project_id": "fauxto-c9310",
+    "storage_bucket": "fauxto-c9310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504775901120:android:ae6bd06d8d8fa0c7",
+        "android_client_info": {
+          "package_name": "ui.com.fauxto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504775901120-n6qvh7amn8n9hc7t362npbv0bijjrb40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ui.com.fauxto",
+            "certificate_hash": "9869b0a9fd383415349b66a0e3d86096a047d773"
+          }
+        },
+        {
+          "client_id": "504775901120-51dv7tof9due3okqdb7ecifv15ja2ni4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9GxTRCjS_aGzC5YWDbcJl7UJ5-IrEH5c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504775901120-51dv7tof9due3okqdb7ecifv15ja2ni4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
