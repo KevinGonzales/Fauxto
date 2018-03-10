@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "504775901120-7mvfn5s7rb8hiob8jhrdk0ift948k7o1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ui.com.fauxto",
+            "certificate_hash": "6a17d0019775aede241222cfb491ceb5c3947758"
+          }
+        },
+        {
           "client_id": "504775901120-n6qvh7amn8n9hc7t362npbv0bijjrb40.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
