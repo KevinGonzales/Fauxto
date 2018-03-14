@@ -1,57 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ProfilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/NameText"
-        android:layout_marginTop="59dp"
-        app:srcCompat="@drawable/ic_launcher_background" />
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/NameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageView1"
-        android:layout_marginEnd="80dp"
-        android:text="Name" />
-
-    <include layout="@layout/profile_bar"/>
-    <include layout="@menu/navigation"
-        android:id="@+id/include" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ProfilePage"
-        android:layout_marginEnd="11dp"
-        android:layout_marginTop="11dp"
-        android:layout_toStartOf="@+id/NameText"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Posts     Friends" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/ProfilePage"
-        android:layout_marginEnd="13dp"
-        android:ems="10"
-        android:inputType="number" />
-
-    <GridView
-        android:layout_width="match_parent"
+    <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ProfilePage"
-        android:layout_marginTop="61dp" />
+        android:layout_width="match_parent">
 
-</RelativeLayout>
+        <include layout="@layout/profile_center"/>
+        <!--<include layout="@layout/profile_bar"/>-->
+        <include layout="@menu/navigation"/>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pLoadingBar"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
