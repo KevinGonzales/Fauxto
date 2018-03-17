@@ -13,7 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import ui.com.fauxto.Camera.CameraActivity;
+import ui.com.fauxto.Login.LoginActivity;
 import ui.com.fauxto.ProfilePage.ProfilePageController;
 import ui.com.fauxto.UserFeed.UserFeedController;
 
@@ -22,6 +27,12 @@ import ui.com.fauxto.UserFeed.UserFeedController;
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+
+
+    private FirebaseAuth mAuth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +44,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView.setOnNavigationItemSelectedListener(this);
 
         loadFragment(new UserFeedController());
+
+        mAuth = FirebaseAuth.getInstance();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //checking if user is logged in
+        if(currentUser == null){
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }else{
+
+        }
+        //updateUI(currentUser);
+    }
+
 
     @Override //Whenever we tap on the menu on the navigation bar this method is called
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
