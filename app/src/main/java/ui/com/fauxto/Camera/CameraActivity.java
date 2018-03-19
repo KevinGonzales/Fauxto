@@ -75,8 +75,6 @@ public class CameraActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
                         Log.d("TAG", "Failed");
                         Log.e("TAG", "exception", exception);
                     }
