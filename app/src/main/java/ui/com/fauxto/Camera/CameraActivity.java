@@ -56,22 +56,13 @@ public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
 
-    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
-    public static final String ALLOW_KEY = "ALLOWED";
-    public static final String CAMERA_PREF = "camera_pref";
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG,"Working");
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"Working");
         setContentView(R.layout.camera_view);
-        Log.d(TAG,"Working");
         this.imageView = (ImageView)this.findViewById(R.id.imageView1);
         Button photoButton = (Button) this.findViewById(R.id.button1);
         photoButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);

@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.navigation_Camera:
                 Intent myIntent = new Intent(this,CameraActivity.class);
-                Log.d("TAG","IN");
                 startActivity(myIntent);
         }
 
