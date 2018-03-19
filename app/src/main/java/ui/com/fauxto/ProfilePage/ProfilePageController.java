@@ -2,6 +2,7 @@ package ui.com.fauxto.ProfilePage;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 import ui.com.fauxto.R;
 
@@ -46,6 +49,10 @@ public class ProfilePageController extends Fragment{
             }
         });
 
+    }
+
+    private void setUpGridView(){
+        final ArrayList<>
     }
 
     @Override
