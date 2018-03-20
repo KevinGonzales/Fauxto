@@ -46,12 +46,15 @@ public class CameraActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     private String mImageFileLocation = "";
+    private StorageReference mStorageRef;
+    private Uri imageURI;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_view);
         this.imageView = (ImageView)this.findViewById(R.id.imageView1);
         Button photoButton = (Button) this.findViewById(R.id.button1);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +77,10 @@ public class CameraActivity extends Activity {
 
             // Display it
             imageView.setImageBitmap(bmp);
+
+            //now start uploading it
+
+            UploadFile(imageURI);
         }
 
     }
@@ -90,7 +97,7 @@ public class CameraActivity extends Activity {
         }
 
         String authorities = "ui.com.fauxto.fileProvider";
-        Uri imageURI = FileProvider.getUriForFile(this, authorities, photoFile);
+        imageURI = FileProvider.getUriForFile(this, authorities, photoFile);
         try {
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -99,7 +106,7 @@ public class CameraActivity extends Activity {
         }
     }
 
-    /*public void  UploadFile(Uri file){
+    public void  UploadFile(Uri file){
         final String uuid = UUID.randomUUID().toString().replace("-", "");
         StorageReference riversRef = mStorageRef.child("images/"+uuid+".jpg");
         Log.d("TAG","The file is " + file);
@@ -119,7 +126,7 @@ public class CameraActivity extends Activity {
                         Log.e("TAG", "exception", exception);
                     }
                 });
-    }*/
+    }
 
     File createImageFile() throws IOException {
 
