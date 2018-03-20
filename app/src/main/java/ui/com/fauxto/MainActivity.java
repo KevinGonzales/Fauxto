@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                 }
 
+
+
                 Intent myIntent = new Intent(this,CameraActivity.class);
                 startActivity(myIntent);
         }
