@@ -52,7 +52,7 @@ public class ProfilePageController extends Fragment{
     }
 
     private void setUpGridView(){
-        final ArrayList<>
+        //final ArrayList<>
     }
 
     @Override
