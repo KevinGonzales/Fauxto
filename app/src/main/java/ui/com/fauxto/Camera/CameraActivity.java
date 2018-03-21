@@ -99,6 +99,12 @@ public class CameraActivity extends Activity {
         String authorities = "ui.com.fauxto.fileProvider";
         imageURI = FileProvider.getUriForFile(this, authorities, photoFile);
         try {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_DENIED){
+                ActivityCompat.requestPermissions(CameraActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
+            }
+
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
         } catch (Exception e) {
