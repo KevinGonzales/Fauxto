@@ -28,6 +28,8 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     compile 'com.google.firebase:firebase-core:11.8.0'
+    //firebase authentication idk if we need this so its a comments
+    //compile 'com.google.firebase:firebase-auth:11.8.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
