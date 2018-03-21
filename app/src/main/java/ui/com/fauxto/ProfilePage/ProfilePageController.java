@@ -1,6 +1,7 @@
 package ui.com.fauxto.ProfilePage;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,9 @@ public class ProfilePageController extends Fragment{
     }*/
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
+        View view = inflater.inflate(R.layout.f_editprofile,container,false);
+        TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
+
         return  inflater.inflate(R.layout.profile_page,null);
     }
 
