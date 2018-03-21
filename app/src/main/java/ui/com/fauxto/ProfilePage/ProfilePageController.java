@@ -38,6 +38,8 @@ public class ProfilePageController extends Fragment{
         View view = inflater.inflate(R.layout.f_editprofile,container,false);
         TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
 
+        //editProfile.setOnClickListener();
+
         return  inflater.inflate(R.layout.profile_page,null);
     }
 
