@@ -2,17 +2,17 @@ package ui.com.fauxto;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
+import android.widget.Toast;
+import android.Manifest;
 import ui.com.fauxto.Camera.CameraActivity;
 import ui.com.fauxto.ProfilePage.ProfilePageController;
 import ui.com.fauxto.UserFeed.UserFeedController;
@@ -22,6 +22,8 @@ import ui.com.fauxto.UserFeed.UserFeedController;
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    private final int CAMERA_PERMISSION =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new ProfilePageController();
                 break;
             case R.id.navigation_Camera:
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+                    }
+                }
+
+
+
                 Intent myIntent = new Intent(this,CameraActivity.class);
-                Log.d("TAG","IN");
                 startActivity(myIntent);
         }
 
@@ -66,6 +76,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(MainActivity.class != null) {
+                        Intent myIntent = new Intent(this,CameraActivity.class);
+                        startActivity(myIntent);
+                    }
+                } else {
+                    Toast.makeText(this, "Please grant camera permission to use the Camera", Toast.LENGTH_SHORT).show();
+                }
+                return;
+        }
+    }
+
+
 
 
 }
