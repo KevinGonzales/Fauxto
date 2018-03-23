@@ -1,6 +1,8 @@
 package ui.com.fauxto.ProfilePage;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -26,25 +29,41 @@ import static android.content.ContentValues.TAG;
  * Created by kevingonzales on 3/5/18.
  */
 
-public class ProfilePageController extends Fragment{
+public class ProfilePageController extends Activity{
+
+    int contentView;
 
     private UserModel user ;
+
+    private ProgressBar mProgressBar;
     /*ProfilePageController(UserModel user){
         this.user = user;
 
     }*/
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.profile_page);
+        //mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+       // mProgressBar.setVisibility(View.GONE);
+
+        //setupToolBar();
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TERST");
+    }
+
+   /* public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
         View view = inflater.inflate(R.layout.f_editprofile,container,false);
         TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
-
+        super.onCreate(savedInstance);
+        setContentView(R.layout.profile_page);
         //editProfile.setOnClickListener();
 
         return  inflater.inflate(R.layout.profile_page,null);
-    }
+    }*/
 
     private void setupToolBar(){
-        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.profileBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.profileBar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -63,9 +82,13 @@ public class ProfilePageController extends Fragment{
         //final ArrayList<>
     }
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
+    }*/
+
+    public void setContentView(int contentView) {
+        this.contentView = contentView;
     }
 }

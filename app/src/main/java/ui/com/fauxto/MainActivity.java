@@ -41,14 +41,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Fragment fragment = null;
+        Intent myIntent = null;
 
         switch (item.getItemId()){
             case R.id.navigation_feed:
                 fragment = new UserFeedController();
+               // myIntent = new Intent(this,MainActivity.class);
                 break;
 
             case R.id.navigation_profilePic:
-                fragment = new ProfilePageController();
+                //fragment = new ProfilePageController();
+                //myIntent = new Intent(this,ProfilePageController.class);
+                //startActivity(myIntent);
+               // loadFragment(fragment);
                 break;
             case R.id.navigation_Camera:
 
@@ -57,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     }
                 }
+                myIntent = new Intent(this,ProfilePageController.class);
+                //break;
 
-
-
-                Intent myIntent = new Intent(this,CameraActivity.class);
+                //Intent myIntent = new Intent(this,ProfilePageController.class);
                 startActivity(myIntent);
         }
-
+        //startActivity(myIntent);
         return loadFragment(fragment);
     }
 
