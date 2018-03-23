@@ -10,11 +10,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.Manifest;
 import ui.com.fauxto.Camera.CameraActivity;
 import ui.com.fauxto.ProfilePage.ProfilePageController;
+import ui.com.fauxto.UserFeed.FeedActivity;
 import ui.com.fauxto.UserFeed.UserFeedController;
 
 /**
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        loadFragment(new UserFeedController());
+        //loadFragment(new UserFeedController());
     }
 
     @Override //Whenever we tap on the menu on the navigation bar this method is called
@@ -44,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()){
             case R.id.navigation_feed:
-                fragment = new UserFeedController();
+                Intent myIntenst = new Intent(this,FeedActivity.class);
+                startActivity(myIntenst);
                 break;
 
             case R.id.navigation_profilePic:
@@ -57,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     }
                 }
+                try{
+                    Intent myIntent = new Intent(this,CameraActivity.class);
+                    startActivity(myIntent);
+                }catch (Exception e){
+                    Log.e("ERR","Error here",e);
+                }
 
-
-
-                Intent myIntent = new Intent(this,CameraActivity.class);
-                startActivity(myIntent);
         }
 
         return loadFragment(fragment);

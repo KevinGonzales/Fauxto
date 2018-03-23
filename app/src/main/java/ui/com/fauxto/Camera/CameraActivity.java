@@ -24,6 +24,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,7 +36,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import ui.com.fauxto.R;
@@ -48,6 +57,10 @@ public class CameraActivity extends Activity {
     private String mImageFileLocation = "";
     private StorageReference mStorageRef;
     private Uri imageURI;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = null;
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +93,11 @@ public class CameraActivity extends Activity {
 
             //now start uploading it
 
-            UploadFile(imageURI);
+
+            myRef = database.getReference("user_images/"+randomString());
+            myRef.setValue(UploadFile(imageURI));
+
+
         }
 
     }
@@ -112,9 +129,10 @@ public class CameraActivity extends Activity {
         }
     }
 
-    public void  UploadFile(Uri file){
-        final String uuid = UUID.randomUUID().toString().replace("-", "");
-        StorageReference riversRef = mStorageRef.child("images/"+uuid+".jpg");
+    public String  UploadFile(Uri file){
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        uuid = "images/"+uuid+".jpg";
+        StorageReference riversRef = mStorageRef.child(uuid);
         Log.d("TAG","The file is " + file);
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -132,6 +150,7 @@ public class CameraActivity extends Activity {
                         Log.e("TAG", "exception", exception);
                     }
                 });
+        return uuid;
     }
 
     File createImageFile() throws IOException {
@@ -149,6 +168,18 @@ public class CameraActivity extends Activity {
 
         return image;
 
+    }
+
+    public static String randomString() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(5);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 
 

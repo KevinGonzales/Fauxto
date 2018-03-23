@@ -26,6 +26,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".UserFeed.FeedActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+            </intent-filter>
+        </activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
