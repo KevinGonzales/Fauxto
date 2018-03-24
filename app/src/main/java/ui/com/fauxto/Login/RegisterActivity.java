@@ -1,6 +1,7 @@
 package ui.com.fauxto.Login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import ui.com.fauxto.MainActivity;
 import ui.com.fauxto.R;
 
 /**
@@ -32,13 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private Context mContext;
-    private String firstName, lastName, username, password;
-    private EditText firstNameInput, lastNameInput, usernameInput, passwordInput;
+    private String email, firstName, lastName, username, password;
+    private EditText emailInput, firstNameInput, lastNameInput, usernameInput, passwordInput;
     private TextView pleaseWait;
     private Button registerButton;
     private ProgressBar progressBar;
 
     private void initFields() {
+        emailInput = (EditText) findViewById(R.id.emailInput);
         firstNameInput = (EditText) findViewById(R.id.firstNameInput);
         lastNameInput = (EditText) findViewById(R.id.lastNameInput);
         usernameInput = (EditText) findViewById(R.id.usernameInput);
@@ -52,19 +55,20 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                email = emailInput.getText().toString();
                 firstName = firstNameInput.getText().toString();
                 lastName = lastNameInput.getText().toString();
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
 
                 //empty or null?
-                if(firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")){
+                if(email.equals("") || firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")){
                     Toast.makeText(mContext, "All fields must be filled out", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mContext, "Signing up...", Toast.LENGTH_SHORT).show();
                     //should be an email?
-                    createAccount(username, password);
-
+                    createAccount(email, password);
+                    changeViewToMain();
                 }
             }
         });
@@ -115,6 +119,13 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "user logged in: " + user.getUid());
         }
+    }
+
+    public void changeViewToMain()
+    {
+        Intent myIntent = new Intent(this,MainActivity.class);
+        Log.d(TAG,"switched view from register to main");
+        startActivity(myIntent);
     }
 
 }
