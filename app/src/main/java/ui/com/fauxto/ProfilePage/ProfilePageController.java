@@ -51,10 +51,10 @@ import ui.com.fauxto.tools.imageLoader;
  * Created by kevingonzales on 3/5/18.
  */
 
-public class ProfilePageController extends Activity{
+public class ProfilePageController extends Fragment{
 
     int contentView;
-    private Context mContext = ProfilePageController.this;
+    private Context mContext = getActivity();//getContext().ProfilePageController.this;
     private UserModel user ;
     private ImageView profilePhoto;
     private ProgressBar mProgressBar;
@@ -95,9 +95,9 @@ public class ProfilePageController extends Activity{
     }
 
     private void setUpWidgets(){
-        mProgressBar = (ProgressBar) findViewById(R.id.pLoadingBar);
+        mProgressBar = (ProgressBar) getView().findViewById(R.id.pLoadingBar);
         mProgressBar.setVisibility(View.GONE);
-        profilePhoto = (ImageView) findViewById(R.id.profile_photo);
+        profilePhoto = (ImageView) getView().findViewById(R.id.profile_photo);
     }
 
     /*public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
@@ -111,7 +111,7 @@ public class ProfilePageController extends Activity{
     }*/
 
     private void setupToolBar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.profileBar);
+        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.profileBar);
         /*toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -138,7 +138,7 @@ public class ProfilePageController extends Activity{
     }*/
 
    public void setupImageGrid(ArrayList<String> imgURLs){
-       GridView gridView = (GridView) findViewById(R.id.pGridView);
+       GridView gridView = (GridView) getView().findViewById(R.id.pGridView);
 
        int gridWidth = getResources().getDisplayMetrics().widthPixels;
        int imageWidth = gridWidth/3;

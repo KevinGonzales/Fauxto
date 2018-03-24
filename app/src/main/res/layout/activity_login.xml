@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context="ui.com.fauxto.Login.LoginActivity">
 
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/loginButton"
+        android:layout_marginBottom="56dp"
+        android:onClick="RegisterHandler"
+        android:text="Register" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -53,9 +63,9 @@
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignEnd="@+id/passwordText"
+        android:layout_below="@+id/passwordText"
+        android:layout_marginTop="28dp"
         android:onClick="LogInHandler"
-        android:layout_marginBottom="58dp"
         android:text="Login" />
 </RelativeLayout>

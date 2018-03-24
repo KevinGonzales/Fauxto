@@ -18,7 +18,21 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Login.RegisterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+            </intent-filter>
+        </activity>
+
         <activity android:name=".Camera.CameraActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UserFeed.FeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

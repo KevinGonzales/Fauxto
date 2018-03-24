@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.Manifest;
@@ -19,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import ui.com.fauxto.Camera.CameraActivity;
 import ui.com.fauxto.ProfilePage.ProfilePageController;
+import ui.com.fauxto.UserFeed.FeedActivity;
 import ui.com.fauxto.UserFeed.UserFeedController;
 import ui.com.fauxto.tools.imageLoader;
 import ui.com.fauxto.R;
@@ -43,9 +45,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
+
         loadFragment(new UserFeedController());
 
 
+        //loadFragment(new ProfilePageController());
     }
 
     @Override //Whenever we tap on the menu on the navigation bar this method is called
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                //myIntent = new Intent(this,MainActivity.class);
                 myIntent = new Intent(this,ProfilePageController.class);
                 startActivity(myIntent);
+                //Intent myIntenst = new Intent(this,FeedActivity.class);
+                //startActivity(myIntenst);
+                fragment = new FeedActivity();
                 break;
 
             case R.id.navigation_profilePic:
@@ -69,15 +76,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                // loadFragment(fragment);
                 break;
             case R.id.navigation_Camera:
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     }
                 }
+
                 //myIntent = new Intent(this,ProfilePageController.class);
                 //Intent myIntent = new Intent(this,ProfilePageController.class);
                 //startActivity(myIntent);
+                try{
+                    //Intent myIntent = new Intent(this,CameraActivity.class);
+                    //startActivity(myIntent);
+                    fragment = new CameraActivity();
+                }catch (Exception e){
+                    Log.e("ERR","Error here",e);
+                }
+
         }
         //startActivity(myIntent);
         return loadFragment(fragment);

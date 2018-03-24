@@ -6,6 +6,15 @@
     android:layout_height="match_parent">
 
 
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/firstNameInput"
+        android:layout_alignStart="@+id/firstNameInput"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
     <TextView
         android:id="@+id/firstName"
         android:layout_width="wrap_content"
@@ -65,14 +74,15 @@
         android:layout_alignBottom="@+id/userName"
         android:layout_alignStart="@+id/passwordInput"
         android:ems="10"
-        android:inputType="textPersonName"/>
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/firstNameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/firstName"
         android:layout_alignBottom="@+id/firstName"
-        android:layout_alignStart="@+id/usernameInput"
+        android:layout_alignStart="@+id/lastNameInput"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -94,5 +104,15 @@
         android:layout_marginTop="90dp"
         android:layout_alignRight="@+id/passwordInput"
         android:text="Register" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/emailInput"
+        android:layout_alignBottom="@+id/emailInput"
+        android:layout_alignStart="@+id/firstName"
+        android:text="Email : "
+        android:textSize="18sp" />
 
 </RelativeLayout>

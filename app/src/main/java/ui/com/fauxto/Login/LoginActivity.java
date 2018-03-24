@@ -25,5 +25,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void RegisterHandler(View view) {
+        Intent myIntent = new Intent(this,RegisterActivity.class);
+        Log.d("TAG","register button clicked");
+        startActivity(myIntent);
+    }
+
 
 }
