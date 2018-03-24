@@ -1,6 +1,7 @@
 package ui.com.fauxto.Camera;
 import android.Manifest;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +18,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -48,9 +51,10 @@ import ui.com.fauxto.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends Fragment {
 
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
@@ -60,9 +64,24 @@ public class CameraActivity extends Activity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = null;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle   savedInstanceState) {
+        View view = inflater.inflate(R.layout.camera_view, null);
 
+        this.imageView = (ImageView)view.findViewById(R.id.imageView1);
+        Button photoButton = (Button) view.findViewById(R.id.button1);
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callCameraApp();
+            }
+        });
 
-    public void onCreate(Bundle savedInstanceState) {
+        return view;
+    }
+
+    /*public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_view);
         this.imageView = (ImageView)this.findViewById(R.id.imageView1);
@@ -75,9 +94,9 @@ public class CameraActivity extends Activity {
                 callCameraApp();
             }
         });
-    }
+    }*/
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (RESULT_OK == resultCode) {
 
@@ -114,12 +133,12 @@ public class CameraActivity extends Activity {
         }
 
         String authorities = "ui.com.fauxto.fileProvider";
-        imageURI = FileProvider.getUriForFile(this, authorities, photoFile);
+        imageURI = FileProvider.getUriForFile(getActivity(), authorities, photoFile);
         try {
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                     == PackageManager.PERMISSION_DENIED){
-                ActivityCompat.requestPermissions(CameraActivity.this, new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
+                ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
             }
 
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
@@ -158,7 +177,7 @@ public class CameraActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
