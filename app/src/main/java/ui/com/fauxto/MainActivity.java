@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        //loadFragment(new UserFeedController());
+        loadFragment(new ProfilePageController());
     }
 
     @Override //Whenever we tap on the menu on the navigation bar this method is called
@@ -46,23 +46,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()){
             case R.id.navigation_feed:
-                Intent myIntenst = new Intent(this,FeedActivity.class);
-                startActivity(myIntenst);
+                //Intent myIntenst = new Intent(this,FeedActivity.class);
+                //startActivity(myIntenst);
+                fragment = new FeedActivity();
                 break;
 
             case R.id.navigation_profilePic:
                 fragment = new ProfilePageController();
                 break;
             case R.id.navigation_Camera:
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     }
                 }
                 try{
-                    Intent myIntent = new Intent(this,CameraActivity.class);
-                    startActivity(myIntent);
+                    //Intent myIntent = new Intent(this,CameraActivity.class);
+                    //startActivity(myIntent);
+                    fragment = new CameraActivity();
                 }catch (Exception e){
                     Log.e("ERR","Error here",e);
                 }

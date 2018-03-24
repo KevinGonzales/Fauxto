@@ -1,5 +1,6 @@
 package ui.com.fauxto.UserFeed;
 
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,7 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -49,7 +56,7 @@ import ui.com.fauxto.R;
  * Created by kevingonzales on 3/21/18.
  */
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -64,6 +71,73 @@ public class FeedActivity extends AppCompatActivity {
 
     final Set<Target> protectedFromGarbageCollectorTargets = new HashSet<>();//need a strong refrence or something
 
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle   savedInstanceState) {
+        View view = inflater.inflate(R.layout.feed,null);
+
+        imageURLs = new ArrayList<String>();
+        listItems = new ArrayList<ListItem>();
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user_images");
+        ref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in datasnapshot
+
+
+                        HashMap<String, String> ss = (HashMap<String, String>) dataSnapshot.getValue();
+                        Log.d("TAGL",ss.toString());
+                        for (Map.Entry<String, String> entry : ss.entrySet()){
+                            //get URL Locations
+                            imageURLs.add(entry.getValue());
+                            Log.d("TAGL",entry.getValue());
+                        }
+
+
+                        //now that u got URL now get the images
+                        //Log.d("TAGL","The size is "+ imageURLs.size());
+                        for(int i = 0; i< imageURLs.size(); i++){
+
+                            //now do firbase thing to ger the file with picasso
+                            StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://fauxto-c9310.appspot.com/"+imageURLs.get(i));
+                            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                            {
+                                @Override
+                                public void onSuccess(Uri downloadUrl)
+                                {
+                                    //do something with downloadurl
+                                    setImage(downloadUrl.toString());
+                                    Log.d("URL","URL IS "+ downloadUrl.toString());
+
+                                }
+                            });
+                            //Log.d("URL","URL is "+gsReference.getDownloadUrl().toString());
+                        }
+                        //not sure why but its doing out of order so inflate now
+                        inflateTheUI();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
+        recyclerView = view.findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); //make a vetical recycler view
+
+        adapter = new MyAdapter(listItems,getActivity());
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,11 +209,12 @@ public class FeedActivity extends AppCompatActivity {
         adapter = new MyAdapter(listItems,this);
         recyclerView.setAdapter(adapter);
 
-    }
+    }*/
 
     private void inflateTheUI(){
         //have to set empty adapter when done loading update it with a full one
-        adapter = new MyAdapter(listItems,this);
+        //adapter = new MyAdapter(listItems,this);
+        adapter = new MyAdapter(listItems,getActivity());
         recyclerView.setAdapter(adapter);
     }
 
@@ -159,7 +234,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private void setImage(String url){
 
-        Picasso.with(this)
+        Picasso.with(getActivity())
                 .load(url)
                 .into(target = new Target() {
                     @Override
@@ -189,19 +264,6 @@ public class FeedActivity extends AppCompatActivity {
 
         protectedFromGarbageCollectorTargets.add(target);
 
-    }
-
-
-    private void signInAnonymously(){
-        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
-            @Override public void onSuccess(AuthResult authResult) {
-                // do your stuff
-            }
-        }) .addOnFailureListener(this, new OnFailureListener() {
-            @Override public void onFailure(@NonNull Exception exception) {
-                Log.e("TAG", "signInAnonymously:FAILURE", exception);
-            }
-        });
     }
 
 
