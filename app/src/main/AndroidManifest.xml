@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
 
-       <activity android:name="ui.com.fauxto.ProfilePage.ProfilePageController"/>
+       <!--<activity android:name="ui.com.fauxto.ProfilePage.ProfilePageController"/>-->
 
         <provider
             android:name="android.support.v4.content.FileProvider"

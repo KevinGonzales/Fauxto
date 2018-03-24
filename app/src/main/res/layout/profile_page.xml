@@ -11,13 +11,13 @@
 
         <include layout="@layout/profile_center"/>
         <!--<include layout="@layout/profile_bar"/>-->
-        <include layout="@menu/navigation"/>
+        <!--<include layout="@menu/navigation"/>-->
 
-        <ProgressBar
+       <!-- <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/pLoadingBar"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"/>-->
 
 
     </RelativeLayout>

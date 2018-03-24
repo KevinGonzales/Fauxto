@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,11 +41,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ui.com.fauxto.R;
 
 import static android.content.ContentValues.TAG;
 import ui.com.fauxto.R;
+import ui.com.fauxto.UserFeed.ListItem;
+import ui.com.fauxto.UserFeed.MyAdapter;
 import ui.com.fauxto.tools.gridImageAdapter;
 import ui.com.fauxto.tools.imageLoader;
 
@@ -59,6 +64,11 @@ public class ProfilePageController extends Fragment{
     private UserModel user ;
     private ImageView profilePhoto;
     private ProgressBar mProgressBar;
+    private Toolbar toolbar;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<ListItem> listItems;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -68,9 +78,10 @@ public class ProfilePageController extends Fragment{
 
     }*/
 
-    @Override
+ /*   @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.profile_page);
         setUpWidgets();
         setProfileImage();
@@ -78,7 +89,8 @@ public class ProfilePageController extends Fragment{
         //mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
        // mProgressBar.setVisibility(View.GONE);
         setupToolBar();
-    }
+
+    }*/
 
     private void tempGridSetup(){
         ArrayList<String> imgURLs = new ArrayList<>();
@@ -103,24 +115,35 @@ public class ProfilePageController extends Fragment{
         //profilePhoto =  findViewById(R.id.profile_photo);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
+        super.onCreate(savedInstance);
+        //listItems = new ArrayList<ListItem>();
+        View view = inflater.inflate(R.layout.profile_page,container,false);
+        //TextView editProfile = (TextView) getView().findViewById(R.id.textEditProfile);
+
+        //setContentView(R.layout.profile_page);
+        //inflateTheUI();
+        //editProfile.setOnClickListener();
+       // this.mProgressBar = getView().findViewById(R.id.pLoadingBar);
+        //this.profilePhoto = getView().findViewById(R.id.profile_photo);
+
+        //this.toolbar = getView().findViewById(R.id.profileBar);
+        //tempGridSetup();
+        //this.mProgressBar.setVisibility(View.GONE);
+
+        /*return  inflater.inflate(R.layout.profile_page,null);*/
+        return view;
     }
 
-    /*public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
-        View view = inflater.inflate(R.layout.f_editprofile,container,false);
-        TextView editProfile = (TextView) view.findViewById(R.id.textEditProfile);
-        super.onCreate(savedInstance);
-        setContentView(R.layout.profile_page);
-        //editProfile.setOnClickListener();
-
-        return  inflater.inflate(R.layout.profile_page,null);
+   /* private void inflateTheUI(){
+        //have to set empty adapter when done loading update it with a full one
+        //adapter = new MyAdapter(listItems,this);
+        adapter = new MyAdapter(listItems,getActivity());
+        recyclerView.setAdapter(adapter);
     }*/
 
     private void setupToolBar(){
-        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.profileBar);
+        toolbar = (Toolbar) getView().findViewById(R.id.profileBar);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.profileBar);
         /*toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -160,6 +183,7 @@ public class ProfilePageController extends Fragment{
 
     public void setContentView(int contentView) {
         this.contentView = contentView;
+        System.out.println("!!!!!!!!!!!!!!!!" + contentView);
     }
 
     private void setupFirebaseAuth(){
@@ -178,7 +202,7 @@ public class ProfilePageController extends Fragment{
         };
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -190,5 +214,5 @@ public class ProfilePageController extends Fragment{
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-    }
+    }*/
 }
