@@ -51,17 +51,18 @@ import ui.com.fauxto.tools.imageLoader;
  * Created by kevingonzales on 3/5/18.
  */
 
+//public class ProfilePageController extends Fragment{
 public class ProfilePageController extends Fragment{
-
     int contentView;
     private Context mContext = getActivity();//getContext().ProfilePageController.this;
+    //private Context mContext = ProfilePageController.this;
     private UserModel user ;
     private ImageView profilePhoto;
     private ProgressBar mProgressBar;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user_images");
+   // DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user_images");
     /*ProfilePageController(UserModel user){
         this.user = user;
 
@@ -90,14 +91,22 @@ public class ProfilePageController extends Fragment{
     }
 
     private void setProfileImage(){
-        String imgURL = "https://www.iconspng.com/images/ninja-fb-profile/ninja-fb-profile.jpg";
-        imageLoader.setImage(imgURL,profilePhoto,mProgressBar,"");
+        String imgURL = "www.iconspng.com/images/ninja-fb-profile/ninja-fb-profile.jpg";
+        imageLoader.setImage(imgURL,profilePhoto,mProgressBar,"https://");
     }
 
     private void setUpWidgets(){
         mProgressBar = (ProgressBar) getView().findViewById(R.id.pLoadingBar);
+        //mProgressBar = findViewById(R.id.pLoadingBar);
         mProgressBar.setVisibility(View.GONE);
         profilePhoto = (ImageView) getView().findViewById(R.id.profile_photo);
+        //profilePhoto =  findViewById(R.id.profile_photo);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     /*public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
@@ -112,6 +121,7 @@ public class ProfilePageController extends Fragment{
 
     private void setupToolBar(){
         Toolbar toolbar = (Toolbar) getView().findViewById(R.id.profileBar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.profileBar);
         /*toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -139,7 +149,7 @@ public class ProfilePageController extends Fragment{
 
    public void setupImageGrid(ArrayList<String> imgURLs){
        GridView gridView = (GridView) getView().findViewById(R.id.pGridView);
-
+       //GridView gridView = (GridView) findViewById(R.id.pGridView);
        int gridWidth = getResources().getDisplayMetrics().widthPixels;
        int imageWidth = gridWidth/3;
        gridView.setColumnWidth(imageWidth);

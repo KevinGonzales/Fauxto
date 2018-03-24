@@ -61,18 +61,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()){
             case R.id.navigation_feed:
                 //fragment = new UserFeedController();
-               //myIntent = new Intent(this,MainActivity.class);
-                myIntent = new Intent(this,ProfilePageController.class);
-                startActivity(myIntent);
-                //Intent myIntenst = new Intent(this,FeedActivity.class);
-                //startActivity(myIntenst);
                 fragment = new FeedActivity();
+
                 break;
 
             case R.id.navigation_profilePic:
-                //fragment = new ProfilePageController();
-                myIntent = new Intent(this,ProfilePageController.class);
-                startActivity(myIntent);
+                fragment = new ProfilePageController();
+                //myIntent = new Intent(this, ProfilePageController.class);
+               // startActivity(myIntent);
+                //myIntent = new Intent(this,ProfilePageController.class);
+                //startActivity(myIntent);
                // loadFragment(fragment);
                 break;
             case R.id.navigation_Camera:
@@ -81,10 +79,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
                     }
                 }
-
-                //myIntent = new Intent(this,ProfilePageController.class);
-                //Intent myIntent = new Intent(this,ProfilePageController.class);
-                //startActivity(myIntent);
                 try{
                     //Intent myIntent = new Intent(this,CameraActivity.class);
                     //startActivity(myIntent);
