@@ -60,10 +60,9 @@ public class FeedActivity extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-
     private Target target;
 
-    private List<String> imageURLs;
+    private List<feedModel> imageURLs; //feedmodel list but cant refactor rename it for some reason
     private List<ListItem> listItems;
     private Bitmap my_image;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -77,7 +76,7 @@ public class FeedActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle   savedInstanceState) {
         View view = inflater.inflate(R.layout.feed,null);
 
-        imageURLs = new ArrayList<String>();
+        imageURLs = new ArrayList<feedModel>();
         listItems = new ArrayList<ListItem>();
 
 
@@ -86,15 +85,10 @@ public class FeedActivity extends Fragment {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of users in datasnapshot
 
-
-                        HashMap<String, String> ss = (HashMap<String, String>) dataSnapshot.getValue();
-                        Log.d("TAGL",ss.toString());
-                        for (Map.Entry<String, String> entry : ss.entrySet()){
-                            //get URL Locations
-                            imageURLs.add(entry.getValue());
-                            Log.d("TAGL",entry.getValue());
+                        for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                            feedModel model = userSnapshot.getValue(feedModel.class);
+                            imageURLs.add(model);
                         }
 
 
@@ -102,15 +96,17 @@ public class FeedActivity extends Fragment {
                         //Log.d("TAGL","The size is "+ imageURLs.size());
                         for(int i = 0; i< imageURLs.size(); i++){
 
+                            final String user = imageURLs.get(i).getUser();
+                            final String desc = imageURLs.get(i).getDescription();
                             //now do firbase thing to ger the file with picasso
-                            StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://fauxto-c9310.appspot.com/"+imageURLs.get(i));
+                            StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://fauxto-c9310.appspot.com/"+imageURLs.get(i).getImageName());
                             gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
                             {
                                 @Override
                                 public void onSuccess(Uri downloadUrl)
                                 {
                                     //do something with downloadurl
-                                    setImage(downloadUrl.toString());
+                                    setImage(downloadUrl.toString(),user,desc);
                                     Log.d("URL","URL IS "+ downloadUrl.toString());
 
                                 }
@@ -137,80 +133,6 @@ public class FeedActivity extends Fragment {
         return view;
     }
 
-    /*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.feed);
-
-
-        imageURLs = new ArrayList<String>();
-        listItems = new ArrayList<ListItem>();
-
-        //Picasso.with(getApplicationContext()).setLoggingEnabled(true);
-        //final ImageView imageView1 = findViewById(R.id.imageView1);
-        //Picasso.with(getApplicationContext()).load("https://firebasestorage.googleapis.com/v0/b/fauxto-c9310.appspot.com/o/images%2Ff611663ff17048b2b46aae9be12db569.jpg?alt=media&token=a0c39076-b93b-4c15-a101-614172e7f481").into(imageView1);
-
-        //imageView1.buildDrawingCache();
-        //Bitmap bmap = imageView1.getDrawingCache();
-
-
-        // Read from the database
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("user_images");
-        ref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //Get map of users in datasnapshot
-
-
-                        HashMap<String, String> ss = (HashMap<String, String>) dataSnapshot.getValue();
-                        Log.d("TAGL",ss.toString());
-                        for (Map.Entry<String, String> entry : ss.entrySet()){
-                            //get URL Locations
-                            imageURLs.add(entry.getValue());
-                            Log.d("TAGL",entry.getValue());
-                        }
-
-
-                        //now that u got URL now get the images
-                        //Log.d("TAGL","The size is "+ imageURLs.size());
-                        for(int i = 0; i< imageURLs.size(); i++){
-
-                            //now do firbase thing to ger the file with picasso
-                            StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://fauxto-c9310.appspot.com/"+imageURLs.get(i));
-                            gsReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-                            {
-                                @Override
-                                public void onSuccess(Uri downloadUrl)
-                                {
-                                    //do something with downloadurl
-                                    setImage(downloadUrl.toString());
-                                    Log.d("URL","URL IS "+ downloadUrl.toString());
-
-                                }
-                            });
-                            //Log.d("URL","URL is "+gsReference.getDownloadUrl().toString());
-                        }
-                        //not sure why but its doing out of order so inflate now
-                        inflateTheUI();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                    }
-                });
-
-        recyclerView = findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); //make a vetical recycler view
-
-        adapter = new MyAdapter(listItems,this);
-        recyclerView.setAdapter(adapter);
-
-    }*/
-
     private void inflateTheUI(){
         //have to set empty adapter when done loading update it with a full one
         //adapter = new MyAdapter(listItems,this);
@@ -232,7 +154,10 @@ public class FeedActivity extends Fragment {
     }
 
 
-    private void setImage(String url){
+    private void setImage(String url,String userName,String Desc){
+
+        final String u = userName;
+        final String d = Desc;
 
         Picasso.with(getActivity())
                 .load(url)
@@ -245,7 +170,7 @@ public class FeedActivity extends Fragment {
                         Log.d("Tag"," bitmap is not null? " + bitmap.toString() );
 
 
-                        ListItem listItem = new ListItem("Heading" ,"desc",my_image);
+                        ListItem listItem = new ListItem(u ,d,my_image);
                         Log.d("TAGL","The messege is "+my_image.toString());
                         listItems.add(listItem);
                         inflateTheUI();

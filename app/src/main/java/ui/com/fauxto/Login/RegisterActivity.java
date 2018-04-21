@@ -14,10 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ui.com.fauxto.MainActivity;
 import ui.com.fauxto.R;
@@ -32,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
     //firebase authentication
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private Context mContext;
     private String email, firstName, lastName, username, password;
     private EditText emailInput, firstNameInput, lastNameInput, usernameInput, passwordInput;
@@ -68,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(mContext, "Signing up...", Toast.LENGTH_SHORT).show();
                     //should be an email?
                     createAccount(email, password);
-                    changeViewToMain();
                 }
             }
         });
@@ -83,7 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            //we must also add the user to DB
+                            addUserToDataBase(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -126,6 +131,31 @@ public class RegisterActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this,MainActivity.class);
         Log.d(TAG,"switched view from register to main");
         startActivity(myIntent);
+        finish();
+    }
+
+    private void addUserToDataBase(FirebaseUser user){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+
+        Map<String,Object> taskMap = new HashMap<>();
+        taskMap.put("firstName",firstName);
+        taskMap.put("lastName",lastName);
+        taskMap.put("password",password);
+        taskMap.put("ProfilePicURL","NA");
+        taskMap.put("UserName", username);
+        taskMap.put("Description", "Hello Fauxto!");
+        taskMap.put("email", user.getEmail());
+        String firebaseFileName = user.getUid();
+
+        myRef.child(firebaseFileName).updateChildren(taskMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                updateUI(user);
+                changeViewToMain();
+            }
+        });
     }
 
 }

@@ -22,11 +22,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +60,7 @@ import static android.content.ContentValues.TAG;
 public class CameraActivity extends Fragment {
 
     private static final int CAMERA_REQUEST = 1888;
+    private EditText desc;
     private ImageView imageView;
     private String mImageFileLocation = "";
     private StorageReference mStorageRef;
@@ -69,6 +73,7 @@ public class CameraActivity extends Fragment {
         View view = inflater.inflate(R.layout.camera_view, null);
 
         this.imageView = (ImageView)view.findViewById(R.id.imageView1);
+        desc = view.findViewById(R.id.description);
         Button photoButton = (Button) view.findViewById(R.id.button1);
         mStorageRef = FirebaseStorage.getInstance().getReference();
         photoButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +82,7 @@ public class CameraActivity extends Fragment {
                 callCameraApp();
             }
         });
+
 
         return view;
     }
@@ -113,8 +119,33 @@ public class CameraActivity extends Fragment {
             //now start uploading it
 
 
-            myRef = database.getReference("user_images/"+randomString());
-            myRef.setValue(UploadFile(imageURI));
+            final String imageName = UUID.randomUUID().toString().replace("-", "");
+            myRef = database.getReference("user_images/");
+            //now set the user and stuff of the images
+
+
+            //lets get the users name
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference userRef = database.getReference("users/"+user.getUid()+"/UserName");
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Map<String,Object> taskMap = new HashMap<>();
+                    String name = (String) dataSnapshot.getValue();
+                    taskMap.put("User", name);
+                    taskMap.put("Description", desc.getText().toString());
+                    taskMap.put("imageName", imageName);
+
+
+                    myRef.child(imageName).updateChildren(taskMap);
+                    UploadFile(imageURI,imageName);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
 
         }
@@ -148,17 +179,18 @@ public class CameraActivity extends Fragment {
         }
     }
 
-    public String  UploadFile(Uri file){
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        uuid = "images/"+uuid+".jpg";
-        StorageReference riversRef = mStorageRef.child(uuid);
+    public void   UploadFile(Uri file,String imageName){
+
+        StorageReference riversRef = mStorageRef.child(imageName);
         Log.d("TAG","The file is " + file);
         riversRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
-                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                         Log.d("TAG","Passed");
                     }
                 })
@@ -169,7 +201,6 @@ public class CameraActivity extends Fragment {
                         Log.e("TAG", "exception", exception);
                     }
                 });
-        return uuid;
     }
 
     File createImageFile() throws IOException {
