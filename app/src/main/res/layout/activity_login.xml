@@ -4,13 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@android:style/Theme.Black"
+    android:background="#ffffff"
     tools:context="ui.com.fauxto.Login.LoginActivity">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="55dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        >
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="209dp"
+            android:layout_height="60dp"
+            android:src="@drawable/thincam"
+            android:layout_gravity="center"
+            android:paddingLeft="30dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:paddingLeft="-20dp"
+            android:src="@drawable/fauxtologo"
+            />
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:id="@+id/emailInput"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:id="@+id/passwordInput"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="LogInHandler"
+        android:text="Login"
+        />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:onClick="RegisterHandler"
+        android:text="Register" />
+</LinearLayout>
+
+
+<!--
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        f:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/loginButton"
         android:layout_marginBottom="56dp"
         android:onClick="RegisterHandler"
@@ -68,4 +147,5 @@
         android:layout_marginTop="28dp"
         android:onClick="LogInHandler"
         android:text="Login" />
+        -->
 </RelativeLayout>

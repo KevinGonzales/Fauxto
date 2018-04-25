@@ -31,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email = findViewById(R.id.editText4);
-        pass = findViewById(R.id.passwordText);
+        email = findViewById(R.id.emailInput);
+        pass = findViewById(R.id.passwordInput);
     }
 
     @Override
