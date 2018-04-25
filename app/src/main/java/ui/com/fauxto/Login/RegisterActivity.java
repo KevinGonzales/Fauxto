@@ -69,7 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
                 //empty or null?
                 if(email.equals("") || firstName.equals("") || lastName.equals("") || username.equals("") || password.equals("")){
                     Toast.makeText(mContext, "All fields must be filled out", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(password.length()<6){
+                    Toast.makeText(mContext, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show();
+                } else{
                     Toast.makeText(mContext, "Signing up...", Toast.LENGTH_SHORT).show();
                     //should be an email?
                     createAccount(email, password);

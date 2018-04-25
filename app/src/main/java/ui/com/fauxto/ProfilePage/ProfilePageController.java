@@ -80,6 +80,7 @@ public class ProfilePageController extends Fragment{
     DatabaseReference myDescnameRef;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance){
+
         View view = inflater.inflate(R.layout.profile_page,null);
 
         imageView = view.findViewById(R.id.ProfilePage);
