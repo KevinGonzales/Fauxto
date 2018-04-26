@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText pass;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.emailInput);
         pass = findViewById(R.id.passwordInput);
+        progressBar = (ProgressBar) findViewById(R.id.loginProgressCircle);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     public void LogInHandler(View view)
     {
         try {
+            progressBar.setVisibility(View.VISIBLE);
             final Intent myIntent = new Intent(this,MainActivity.class);
             Log.d("TAG","MAdeIt");
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())

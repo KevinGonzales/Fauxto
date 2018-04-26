@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:theme="@android:style/Theme.Black"
     android:background="#ffffff"
-    tools:context="ui.com.fauxto.Login.LoginActivity">
+    tools:context="ui.com.fauxto.Login.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -107,127 +107,11 @@
             android:layout_marginTop="15dp"
             />
     </LinearLayout>
-
+    <ProgressBar
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:id="@+id/registerProgressCircle"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        />
 </RelativeLayout>
-
-
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <EditText
-        android:id="@+id/emailInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/firstNameInput"
-        android:layout_alignStart="@+id/firstNameInput"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/firstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/usernameInput"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="72dp"
-        android:layout_marginStart="26dp"
-        android:text="First Name :"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/lastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/usernameInput"
-        android:layout_alignEnd="@+id/firstName"
-        android:layout_marginBottom="19dp"
-        android:text="Last Name :"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/lastName"
-        android:layout_marginBottom="249dp"
-        android:text="User Name :"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/userName"
-        android:layout_below="@+id/usernameInput"
-        android:layout_marginTop="20dp"
-        android:text="Password :"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/password"
-        android:layout_marginStart="14dp"
-        android:layout_toEndOf="@+id/userName"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/usernameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/userName"
-        android:layout_alignBottom="@+id/userName"
-        android:layout_alignStart="@+id/passwordInput"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/firstNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/firstName"
-        android:layout_alignBottom="@+id/firstName"
-        android:layout_alignStart="@+id/lastNameInput"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/lastNameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lastName"
-        android:layout_alignBottom="@+id/lastName"
-        android:layout_alignStart="@+id/usernameInput"
-        android:ems="10"
-        android:inputType="textPersonName"/>
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameInput"
-        android:layout_marginTop="90dp"
-        android:layout_alignRight="@+id/passwordInput"
-        android:text="Register" />
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/emailInput"
-        android:layout_alignBottom="@+id/emailInput"
-        android:layout_alignStart="@+id/firstName"
-        android:text="Email : "
-        android:textSize="18sp" />
-
-</RelativeLayout>
--->

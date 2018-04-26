@@ -82,70 +82,12 @@
         android:onClick="RegisterHandler"
         android:text="Register" />
 </LinearLayout>
-
-
-<!--
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        f:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/loginButton"
-        android:layout_marginBottom="56dp"
-        android:onClick="RegisterHandler"
-        android:text="Register" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginStart="17dp"
-        android:text="Email:"
-        android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginBottom="214dp"
-        android:text="Password :"
-        android:textSize="25dp" />
-
-    <EditText
-        android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText4"
-        android:layout_alignTop="@+id/textView2"
-        android:textSize="15dp"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/textView"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="15dp" />
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/passwordText"
-        android:layout_below="@+id/passwordText"
-        android:layout_marginTop="28dp"
-        android:onClick="LogInHandler"
-        android:text="Login" />
-        -->
+    
+    <ProgressBar
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:id="@+id/loginProgressCircle"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        />
 </RelativeLayout>

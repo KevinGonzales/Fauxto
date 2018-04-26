@@ -52,7 +52,9 @@ public class RegisterActivity extends AppCompatActivity {
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
         registerButton = (Button) findViewById(R.id.registerButton);
+        progressBar = (ProgressBar) findViewById(R.id.registerProgressCircle);
         mContext = RegisterActivity.this;
+
 
     }
 
@@ -72,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if(password.length()<6){
                     Toast.makeText(mContext, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show();
                 } else{
-                    Toast.makeText(mContext, "Signing up...", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                     //should be an email?
                     createAccount(email, password);
                 }
